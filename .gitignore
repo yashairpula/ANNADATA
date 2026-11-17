@@ -8,3 +8,6 @@ __pycache__/
 instance/
 .pytest_cache/
 .vscode/
+catboost_info/
+ml/data/
+ml/models/*.joblib
