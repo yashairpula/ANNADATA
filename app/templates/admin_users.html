@@ -1,0 +1,132 @@
+
+{% extends "base.html" %}
+
+{% block title %}User Management | ANNADATA{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <header class="dashboard-header">
+        <div>
+            <h1>ANNADATA</h1>
+            <p class="subtitle">Administrator Panel — User Management</p>
+        </div>
+
+        <a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="flash-message flash-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+    <section class="admin-section">
+
+        <h2>Pending Registrations</h2>
+
+        {% if pending_users %}
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Registration Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for user in pending_users %}
+                            <tr>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.created_at }}</td>
+                                <td class="actions">
+
+                                    <form method="POST"
+                                          action="{{ url_for('approve_user_route', user_id=user.id) }}">
+
+                                        <input type="hidden"
+                                               name="csrf_token"
+                                               value="{{ csrf_token() }}">
+
+                                        <button type="submit"
+                                                class="approve-button">
+                                            Approve
+                                        </button>
+                                    </form>
+
+                                    <form method="POST"
+                                          action="{{ url_for('reject_user_route', user_id=user.id) }}">
+
+                                        <input type="hidden"
+                                               name="csrf_token"
+                                               value="{{ csrf_token() }}">
+
+                                        <button type="submit"
+                                                class="reject-button">
+                                            Reject
+                                        </button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+
+            <p class="empty-state">
+                No pending registrations at the moment.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="admin-section">
+
+        <h2>All Registered Users</h2>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>
+                                <span class="status-{{ user.status }}">
+                                    {{ user.status|capitalize }}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

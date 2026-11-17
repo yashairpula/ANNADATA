@@ -1,0 +1,83 @@
+
+{% extends "base.html" %}
+
+{% block title %}User Dashboard | ANNADATA{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <header class="dashboard-header">
+        <div>
+            <h1>ANNADATA</h1>
+            <p class="subtitle">Agriculture Assistant Dashboard</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('logout') }}">
+            <input type="hidden"
+                   name="csrf_token"
+                   value="{{ csrf_token() }}">
+            <button type="submit" class="reject-button">
+                Logout
+            </button>
+        </form>
+    </header>
+
+    <section class="admin-section">
+        <h2>Welcome, {{ current_user.name }}!</h2>
+        <p>
+            Access agricultural information and tools to help
+            make informed farming decisions.
+        </p>
+    </section>
+
+    <section class="feature-grid">
+
+        <div class="feature-card">
+            <h2>Weather Updates</h2>
+            <p>Check weather information for Hyderabad and Telangana districts.</p>
+            <a href="/api/weather/hyderabad" target="_blank">
+                Hyderabad Weather
+            </a>
+            <a href="/api/weather/telangana" target="_blank">
+                Telangana Weather
+            </a>
+        </div>
+
+        <div class="feature-card">
+            <h2>Mandi Market Prices</h2>
+            <p>Explore current agricultural commodity prices.</p>
+            <a href="/api/market-prices" target="_blank">
+                View Market Prices
+            </a>
+        </div>
+
+        <div class="feature-card">
+            <h2>Historical Prices</h2>
+            <p>Explore previously collected market-price records.</p>
+            <a href="/api/market-prices/history" target="_blank">
+                View Price History
+            </a>
+        </div>
+
+        <div class="feature-card">
+            <h2>Market Trends</h2>
+            <p>Examine historical price movements.</p>
+            <a href="/api/market-prices/trends" target="_blank">
+                View Trends
+            </a>
+        </div>
+
+        <div class="feature-card">
+            <h2>Market Comparison</h2>
+            <p>Compare recorded prices across markets.</p>
+            <a href="/api/market-prices/compare" target="_blank">
+                Compare Markets
+            </a>
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

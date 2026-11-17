@@ -1,16 +1,171 @@
-﻿<!doctype html>
+﻿
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>ANNADATA | Agriculture Assistant</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
     <main class="container">
+
         <h1>ANNADATA</h1>
         <p>Your smart agriculture assistant.</p>
-        <p>Crop guidance, weather and market insights - coming soon.</p>
+
+        <hr>
+
+        <section id="weather-section">
+            <h2>Telangana Weather Forecast</h2>
+
+            <p>
+                Check the 7-day weather forecast for your district.
+            </p>
+
+            <label for="district-select">
+                Select District:
+            </label>
+
+            <select id="district-select">
+                <option value="">Loading districts...</option>
+            </select>
+
+            <button id="weather-button" onclick="loadWeather()">
+                Get Weather
+            </button>
+
+            <p id="weather-status"></p>
+
+            <div id="weather-results"></div>
+        </section>
+
     </main>
+
+    <script>
+        let weatherData = {};
+
+        async function loadWeather() {
+            const button = document.getElementById("weather-button");
+            const status = document.getElementById("weather-status");
+            const results = document.getElementById("weather-results");
+
+            button.disabled = true;
+            status.textContent = "Fetching weather data...";
+            results.innerHTML = "";
+
+            try {
+                const response = await fetch(
+                    "/api/weather/telangana"
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch weather data.");
+                }
+
+                const data = await response.json();
+
+                weatherData = data.weather;
+
+                const districtSelect =
+                    document.getElementById("district-select");
+
+                districtSelect.innerHTML = "";
+
+                const districts = Object.keys(weatherData).sort();
+
+                districts.forEach(function(district) {
+                    const option = document.createElement("option");
+
+                    option.value = district;
+                    option.textContent = district;
+
+                    districtSelect.appendChild(option);
+                });
+
+                districtSelect.value = "Hyderabad";
+
+                status.textContent =
+                    "Weather data loaded for " +
+                    data.total_districts + " districts.";
+
+                displayWeather();
+
+            } catch (error) {
+                status.textContent =
+                    "Error loading weather: " + error.message;
+
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        function displayWeather() {
+            const district =
+                document.getElementById("district-select").value;
+
+            const results =
+                document.getElementById("weather-results");
+
+            const districtWeather = weatherData[district];
+
+            if (!districtWeather || districtWeather.error) {
+                results.innerHTML =
+                    "<p>Weather data is currently unavailable for this district.</p>";
+                return;
+            }
+
+            const daily = districtWeather.daily;
+
+            if (!daily || !daily.time) {
+                results.innerHTML =
+                    "<p>Weather data is incomplete for this district. Please try again.</p>";
+                return;
+            }
+
+            let html = `
+                <h3>${district} - 7 Day Forecast</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Max Temp (°C)</th>
+                            <th>Min Temp (°C)</th>
+                            <th>Rainfall (mm)</th>
+                            <th>Rain Chance (%)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+            `;
+
+            for (let i = 0; i < daily.time.length; i++) {
+                html += `
+                    <tr>
+                        <td>${daily.time[i]}</td>
+                        <td>${daily.temperature_2m_max[i]}</td>
+                        <td>${daily.temperature_2m_min[i]}</td>
+                        <td>${daily.precipitation_sum[i]}</td>
+                        <td>${daily.precipitation_probability_max[i]}</td>
+                    </tr>
+                `;
+            }
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            results.innerHTML = html;
+        }
+
+        document.getElementById("district-select")
+            .addEventListener("change", displayWeather);
+    </script>
+
 </body>
 </html>
