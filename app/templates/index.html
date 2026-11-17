@@ -4,126 +4,138 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ANNADATA | Smart Agriculture Advisory</title>
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='images/logo.jpg') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-    <!-- Top Government & SIH Header -->
-    <div class="top-gov-bar">
-        <div class="container">
-            <span id="gov_text">Government of Jharkhand • SIH25030 Smart Agriculture Ecosystem</span>
-            <span>AI Domain: Agriculture, FoodTech & Rural Development</span>
+    <!-- Top Gov Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <span data-i18n="top_gov_text">Government of Jharkhand • SIH25030 Smart Agriculture Ecosystem</span>
+            <span data-i18n="top_gov_domain">AI Domain: Agriculture, FoodTech & Rural Development</span>
         </div>
     </div>
 
-    <!-- Header Navigation -->
-    <header class="header">
-        <div class="container header-inner">
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container header-row">
             <a href="#" class="brand">
-                <div class="brand-logo">🌾</div>
-                <div class="brand-text">
-                    <h1>ANNA-DATA</h1>
-                    <p id="app_subtitle">AI-driven Network for Nurturing Agriculture</p>
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Anna-Data Logo" class="brand-img">
+                <div>
+                    <h1 class="brand-title" data-i18n="app_title">ANNA-DATA</h1>
+                    <p class="brand-subtitle" data-i18n="app_subtitle">AI-driven Network for Nurturing Agriculture</p>
                 </div>
             </a>
 
-            <div class="header-controls">
-                <!-- Multilingual Switcher -->
-                <div class="lang-selector">
+            <div class="header-actions">
+                <!-- Language Switcher -->
+                <div class="lang-switch">
                     <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">English</button>
                     <button class="lang-btn" data-lang="te" onclick="setLanguage('te')">తెలుగు</button>
                     <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिन्दी</button>
                 </div>
 
-                <!-- Offline Print Button -->
-                <button class="btn-download-advisory" onclick="window.print()" id="download_btn">
+                <!-- Print / Save Offline Button -->
+                <button class="btn-print" onclick="window.print()" data-i18n="btn_offline">
                     📥 Save Offline Advisory
                 </button>
             </div>
         </div>
 
         <!-- Navigation Tabs -->
-        <div class="container">
-            <nav class="nav-tabs">
-                <button class="nav-tab active" data-tab="tab_crop_advisor" onclick="switchTab('tab_crop_advisor')" id="tab_crop">
-                    🌾 Crop Advisor
-                </button>
-                <button class="nav-tab" data-tab="tab_germination_lifecycle" onclick="switchTab('tab_germination_lifecycle')" id="tab_germination">
-                    🌱 Germination & Lifecycle
-                </button>
-                <button class="nav-tab" data-tab="tab_fertilizer_formulator" onclick="switchTab('tab_fertilizer_formulator')" id="tab_fertilizer">
-                    🧪 AI Fertilizer Formulation
-                </button>
-                <button class="nav-tab" data-tab="tab_weather_forecast" onclick="switchTab('tab_weather_forecast')" id="tab_weather">
-                    🌦️ Weather & Alerts
-                </button>
-                <button class="nav-tab" data-tab="tab_market_prices" onclick="switchTab('tab_market_prices')" id="tab_market">
-                    📈 Mandi Prices
-                </button>
-                <button class="nav-tab" data-tab="tab_inventory_pnl" onclick="switchTab('tab_inventory_pnl')" id="tab_pnl">
-                    💰 Inventory & Profit
-                </button>
-                <button class="nav-tab" data-tab="tab_crop_database" onclick="switchTab('tab_crop_database')" id="tab_library">
-                    📚 Telangana Crop Library
-                </button>
-            </nav>
+        <div class="nav-scroller">
+            <div class="container">
+                <nav class="nav-tabs">
+                    <button class="tab-btn active" data-tab="tab_crop" onclick="switchTab('tab_crop')" data-i18n="tab_crop_advisor">
+                        🌾 Crop Advisor
+                    </button>
+                    <button class="tab-btn" data-tab="tab_growth" onclick="switchTab('tab_growth')" data-i18n="tab_germination">
+                        🌱 Germination & Growth
+                    </button>
+                    <button class="tab-btn" data-tab="tab_fert" onclick="switchTab('tab_fert')" data-i18n="tab_fertilizer">
+                        🧪 AI Fertilizer Maker
+                    </button>
+                    <button class="tab-btn" data-tab="tab_weather" onclick="switchTab('tab_weather')" data-i18n="tab_weather">
+                        🌦️ Weather & Alerts
+                    </button>
+                    <button class="tab-btn" data-tab="tab_mandi" onclick="switchTab('tab_mandi')" data-i18n="tab_market">
+                        📈 Mandi Prices
+                    </button>
+                    <button class="tab-btn" data-tab="tab_pnl" onclick="switchTab('tab_pnl')" data-i18n="tab_inventory">
+                        💰 Farm Profit & Loss
+                    </button>
+                    <button class="tab-btn" data-tab="tab_lib" onclick="switchTab('tab_lib')" data-i18n="tab_library">
+                        📚 Telangana Crop Library
+                    </button>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <main class="container" style="margin-top: 24px;">
+    <main class="container">
 
-        <!-- Weather Snapshot & Early Warning Alert Banner -->
-        <div class="weather-card">
-            <div class="weather-loc">
-                <div style="font-size: 3rem;">🌦️</div>
+        <!-- Live Weather Strip -->
+        <div class="weather-strip">
+            <div class="weather-main">
+                <div class="weather-icon">🌦️</div>
                 <div>
-                    <h2 style="font-size: 1.3rem;">Warangal & Telangana Agri-Zone</h2>
-                    <p style="opacity: 0.85; font-size: 0.9rem;">Live Climate Monitoring • Real-Time Sensor Sync</p>
+                    <h3 class="weather-title" data-i18n="weather_loc_title">Warangal & Regional Agricultural Zone</h3>
+                    <p class="weather-subtitle" data-i18n="weather_sync_text">Live Weather Synchronization • Automated Sensor Feeds</p>
                 </div>
             </div>
-            <div class="weather-stats">
-                <div class="weather-stat-item">
-                    Temp
-                    <span>29.5°C</span>
+            <div class="weather-metrics">
+                <div class="weather-pill">
+                    <span data-i18n="w_label_temp">Temperature</span>
+                    <strong>29.5°C</strong>
                 </div>
-                <div class="weather-stat-item">
-                    Humidity
-                    <span>68%</span>
+                <div class="weather-pill">
+                    <span data-i18n="w_label_humidity">Humidity</span>
+                    <strong>68%</strong>
                 </div>
-                <div class="weather-stat-item">
-                    Rain Prob.
-                    <span>35%</span>
+                <div class="weather-pill">
+                    <span data-i18n="w_label_rain">Rain Prob.</span>
+                    <strong>35%</strong>
                 </div>
-                <div class="weather-stat-item">
-                    Wind
-                    <span>14 km/h</span>
+                <div class="weather-pill">
+                    <span data-i18n="w_label_wind">Wind Speed</span>
+                    <strong>14 km/h</strong>
                 </div>
             </div>
         </div>
 
-        <div class="alert-strip">
-            <div class="alert-content">
-                <span class="alert-icon">⚡</span>
-                <div>
-                    <div class="alert-title" id="alert_title">Early Storm & Rain Advisory</div>
-                    <div class="alert-desc" id="alert_desc">Scattered showers predicted in 48 hours. Postpone open fertilizer spraying and secure harvesting bundles.</div>
-                </div>
+        <!-- Storm / Rain Warning Banner -->
+        <div class="warning-bar">
+            <div class="warning-icon">⚡</div>
+            <div>
+                <div class="warning-title" data-i18n="warning_title">Active Weather Advisory: Rain Expected</div>
+                <div class="warning-desc" data-i18n="warning_desc">Scattered showers predicted within 48 hours. Postpone foliar pesticide sprays and protect open harvest heaps.</div>
             </div>
-            <span style="font-size: 0.82rem; background: #fff; padding: 4px 10px; border-radius: 20px; font-weight: 700; color: #8d4f00;">Active Warning</span>
         </div>
 
         <!-- TAB 1: CROP ADVISOR -->
-        <section id="tab_crop_advisor" class="tab-content active">
+        <section id="tab_crop" class="tab-panel active">
             <div class="grid-2">
-                <!-- Input Parameters -->
+                <!-- Inputs Card -->
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title" id="crop_form_title">Soil & Climate Parameter Input</h2>
+                        <h2 class="card-title" data-i18n="form_title_crop">Soil & Environmental Parameters</h2>
                     </div>
+
+                    <!-- Quick Presets -->
+                    <div class="presets-bar">
+                        <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted); align-self:center;" data-i18n="presets_title">Quick Soil Presets:</span>
+                        <button type="button" class="preset-btn" onclick="applySoilPreset('black')" data-i18n="preset_black_soil">🌿 Black Cotton Soil</button>
+                        <button type="button" class="preset-btn" onclick="applySoilPreset('red')" data-i18n="preset_red_soil">🥜 Red Loamy Soil</button>
+                        <button type="button" class="preset-btn" onclick="applySoilPreset('alluvial')" data-i18n="preset_alluvial_soil">🌾 Alluvial Delta Soil</button>
+                    </div>
+
                     <form onsubmit="handleCropSubmit(event)">
                         <div class="grid-2">
                             <div class="form-group">
-                                <label class="form-label" for="district">District / Region</label>
+                                <label class="form-label" for="district">
+                                    <span data-i18n="label_district">District / Region:</span>
+                                </label>
                                 <select id="district" class="form-control">
                                     <option value="Warangal" selected>Warangal (Telangana)</option>
                                     <option value="Khammam">Khammam (Telangana)</option>
@@ -137,186 +149,194 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="season">Cultivation Season</label>
+                                <label class="form-label" for="season">
+                                    <span data-i18n="label_season">Cultivation Season:</span>
+                                </label>
                                 <select id="season" class="form-control">
-                                    <option value="Kharif" selected>Kharif (Monsoon)</option>
-                                    <option value="Rabi">Rabi (Winter)</option>
-                                    <option value="Zaid">Zaid (Summer)</option>
+                                    <option value="Kharif" selected data-i18n="season_kharif">Kharif (Monsoon)</option>
+                                    <option value="Rabi" data-i18n="season_rabi">Rabi (Winter)</option>
+                                    <option value="Zaid" data-i18n="season_zaid">Zaid (Summer)</option>
                                 </select>
                             </div>
                         </div>
 
-                        <!-- Soil NPK -->
+                        <!-- N, P, K Sliders -->
                         <div class="form-group">
-                            <label class="form-label">Nitrogen (N) - kg/ha: <span id="nitrogen_val" class="range-val">75</span></label>
-                            <input type="range" id="nitrogen" class="form-control" min="0" max="140" value="75">
+                            <label class="form-label">
+                                <span data-i18n="label_n">Nitrogen (N) - kg/ha:</span>
+                                <span id="nitrogen_val" class="form-val-badge">115</span>
+                            </label>
+                            <input type="range" id="nitrogen" class="form-control" min="0" max="140" value="115">
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Phosphorus (P) - kg/ha: <span id="phosphorus_val" class="range-val">50</span></label>
-                            <input type="range" id="phosphorus" class="form-control" min="5" max="100" value="50">
+                            <label class="form-label">
+                                <span data-i18n="label_p">Phosphorus (P) - kg/ha:</span>
+                                <span id="phosphorus_val" class="form-val-badge">48</span>
+                            </label>
+                            <input type="range" id="phosphorus" class="form-control" min="5" max="100" value="48">
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Potassium (K) - kg/ha: <span id="potassium_val" class="range-val">45</span></label>
-                            <input type="range" id="potassium" class="form-control" min="5" max="120" value="45">
+                            <label class="form-label">
+                                <span data-i18n="label_k">Potassium (K) - kg/ha:</span>
+                                <span id="potassium_val" class="form-val-badge">22</span>
+                            </label>
+                            <input type="range" id="potassium" class="form-control" min="5" max="120" value="22">
                         </div>
 
-                        <!-- pH, Rainfall, Temp -->
+                        <!-- pH, Rainfall, Temperature -->
                         <div class="grid-2">
                             <div class="form-group">
-                                <label class="form-label">Soil pH: <span id="ph_val" class="range-val">6.8</span></label>
-                                <input type="range" id="ph" class="form-control" min="4.0" max="9.0" step="0.1" value="6.8">
+                                <label class="form-label">
+                                    <span data-i18n="label_ph">Soil pH Level:</span>
+                                    <span id="ph_val" class="form-val-badge">7.2</span>
+                                </label>
+                                <input type="range" id="ph" class="form-control" min="4.0" max="9.0" step="0.1" value="7.2">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Rainfall (mm): <span id="rainfall_val" class="range-val">850</span></label>
-                                <input type="range" id="rainfall" class="form-control" min="200" max="2000" step="25" value="850">
+                                <label class="form-label">
+                                    <span data-i18n="label_rainfall">Annual Rainfall (mm):</span>
+                                    <span id="rainfall_val" class="form-val-badge">750</span>
+                                </label>
+                                <input type="range" id="rainfall" class="form-control" min="200" max="2000" step="25" value="750">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Temperature (°C): <span id="temperature_val" class="range-val">28</span></label>
-                            <input type="range" id="temperature" class="form-control" min="10" max="45" value="28">
+                            <label class="form-label">
+                                <span data-i18n="label_temp">Average Temperature (°C):</span>
+                                <span id="temperature_val" class="form-val-badge">26</span>
+                            </label>
+                            <input type="range" id="temperature" class="form-control" min="10" max="45" value="26">
                         </div>
 
-                        <button type="submit" class="btn-primary" id="btn_predict">
+                        <button type="submit" class="btn-submit" id="btn_predict" data-i18n="btn_predict_crop">
                             Get AI Recommendation
                         </button>
                     </form>
                 </div>
 
-                <!-- Recommendation Output -->
+                <!-- Results Card -->
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Recommendation Results</h2>
-                        <span style="font-size:0.8rem; background:#e8f5e9; color:#2e7d32; padding:4px 10px; border-radius:12px; font-weight:700;">CatBoost + LightGBM</span>
+                        <h2 class="card-title" data-i18n="result_title">AI Recommendation (CatX-GOSS Ensemble)</h2>
                     </div>
 
-                    <div id="crop_result_box" class="result-box">
-                        <div style="font-size: 0.9rem; color: #2e7d32; font-weight: 700; text-transform: uppercase;">
-                            ★ AI Recommendation (Ensemble Model)
+                    <div id="crop_result_box" class="crop-result-card">
+                        <div style="font-size:0.8rem; font-weight:700; color:var(--primary); text-transform:uppercase;" data-i18n="result_badge_top">
+                            Top Recommended Crop
                         </div>
-                        <div class="crop-badge-main">Cotton (పత్తి / कपास)</div>
-                        <p style="color: #43a047; font-weight: 700; margin-bottom: 12px;">
-                            Precision Confidence: 95.8%
-                        </p>
-                        <div class="result-stat-grid">
-                            <div class="result-stat-item">
-                                <strong>Expected Yield:</strong>
-                                <span>12 - 16 Quintals/Acre</span>
+                        <div class="crop-badge-name">Cotton (పత్తి / कपास)</div>
+                        <div class="crop-accuracy-tag">
+                            ★ 96.3% Model Match (CatX-GOSS Super-Ensemble)
+                        </div>
+                        <div class="crop-stats-grid">
+                            <div class="crop-stat-box">
+                                <span data-i18n="stat_yield">Expected Yield:</span>
+                                <strong>12 - 16 Quintals/Acre</strong>
                             </div>
-                            <div class="result-stat-item">
-                                <strong>Growth Duration:</strong>
-                                <span>150 - 165 Days</span>
+                            <div class="crop-stat-box">
+                                <span data-i18n="stat_duration">Growth Duration:</span>
+                                <strong>150 - 170 Days</strong>
                             </div>
-                            <div class="result-stat-item">
-                                <strong>Germination Window:</strong>
-                                <span>4 - 7 Days at 25°C - 32°C</span>
+                            <div class="crop-stat-box">
+                                <span data-i18n="stat_germination">Germination Window:</span>
+                                <strong>4 - 7 Days at 25°C - 32°C</strong>
                             </div>
-                            <div class="result-stat-item">
-                                <strong>Alternative Options:</strong>
-                                <span>Maize, Soybean</span>
+                            <div class="crop-stat-box">
+                                <span data-i18n="stat_alternatives">Alternative Crops:</span>
+                                <strong>Maize, Soybean</strong>
                             </div>
                         </div>
-                        <p style="margin-top: 14px; font-size: 0.85rem; color: #555;">
-                            💡 <em>Optimal for pH 6.8 with current NPK (75:50:45) in Warangal for Kharif season.</em>
-                        </p>
                     </div>
 
-                    <div style="margin-top: 20px; background:#f9fbf9; padding: 14px; border-radius: 8px; border: 1px solid var(--border);">
-                        <h4 style="font-size:0.95rem; color: var(--primary-dark); margin-bottom: 6px;">Why this recommendation?</h4>
-                        <p style="font-size:0.84rem; color: var(--text-muted);">
-                            The model analyzes deep non-linear soil-climate interactions. The moderate rainfall (850mm) and high potassium availability strongly favour boll development while avoiding moisture logging.
+                    <div style="margin-top:16px; background:#f9fbf9; border:1px solid var(--border); padding:14px; border-radius:8px;">
+                        <h4 style="font-size:0.92rem; color:var(--primary); margin-bottom:4px;" data-i18n="why_title">Why this recommendation?</h4>
+                        <p style="font-size:0.84rem; color:var(--text-muted);" data-i18n="why_desc">
+                            The CatBoost and LightGBM ensemble identified optimal nutrient absorption efficiency and climate resilience for your soil parameters.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 2: GERMINATION & LIFECYCLE -->
-        <section id="tab_germination_lifecycle" class="tab-content">
+        <!-- TAB 2: GERMINATION & GROWTH CALENDAR -->
+        <section id="tab_growth" class="tab-panel">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title" id="germination_title">Germination & Plant Growth Calendar</h2>
-                    <div style="display:flex; align-items:center; gap: 10px;">
-                        <label for="sowing_date" style="font-size:0.85rem; font-weight:700;">Select Sowing Date:</label>
-                        <input type="date" id="sowing_date" class="form-control" style="width: auto; padding: 6px 10px;" onchange="updateLifecycleDates()">
+                    <h2 class="card-title" data-i18n="lifecycle_title">Germination & Growth Calendar</h2>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <label for="sowing_date" style="font-size:0.85rem; font-weight:700;" data-i18n="label_sowing_date">Sowing Date:</label>
+                        <input type="date" id="sowing_date" class="form-control" style="width:auto; padding:5px 10px;" onchange="updateLifecycleDates()">
                     </div>
                 </div>
 
-                <div class="timeline">
-                    <!-- Stage 1 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Stage 1: Seed Treatment & Germination</div>
-                            <div class="timeline-time">Day 0 to 7 • Expected Date: <span id="date_germination">Nov 22</span></div>
-                            <p class="timeline-tasks">
-                                • Seed priming with Trichoderma viride (10g/kg seed).<br>
-                                • Soil temperature optimum: 24°C - 30°C. Maintain topsoil moisture at 60%.<br>
-                                • Germination check: Emergence expected between days 4-6. Re-sow gaps immediately.
-                            </p>
+                <div class="lifecycle-list">
+                    <div class="lifecycle-card">
+                        <div class="lifecycle-header">
+                            <span class="lifecycle-stage" data-i18n="stage1_title">Stage 1: Sowing & Seed Germination</span>
+                            <span class="lifecycle-date" id="date_stage1">Nov 22</span>
                         </div>
+                        <p class="lifecycle-desc" data-i18n="stage1_tasks">
+                            • Prime seeds with Trichoderma (10g/kg) to prevent fungal dampening.<br>
+                            • Maintain topsoil moisture at 60%. Soil temperature 24°C - 30°C.<br>
+                            • Expect emergence within days 4 to 6. Fill any empty gaps immediately.
+                        </p>
                     </div>
 
-                    <!-- Stage 2 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Stage 2: Vegetative Growth & Branching</div>
-                            <div class="timeline-time">Day 8 to 35 • Expected Date: <span id="date_vegetative">Dec 12</span></div>
-                            <p class="timeline-tasks">
-                                • First intercultural weeding and thinning to maintain 60cm row spacing.<br>
-                                • Top-dress with nitrogen or apply enriched Jeevamrutha near roots.<br>
-                                • Monitor for sucking pests (aphids, jassids) with yellow sticky traps.
-                            </p>
+                    <div class="lifecycle-card">
+                        <div class="lifecycle-header">
+                            <span class="lifecycle-stage" data-i18n="stage2_title">Stage 2: Vegetative Growth & Branching</span>
+                            <span class="lifecycle-date" id="date_stage2">Dec 12</span>
                         </div>
+                        <p class="lifecycle-desc" data-i18n="stage2_tasks">
+                            • First intercultural weeding to eliminate competition for nutrients.<br>
+                            • Side-dress with Nitrogen or apply enriched Jeevamrutha near roots.<br>
+                            • Deploy yellow sticky traps for sucking pest early detection.
+                        </p>
                     </div>
 
-                    <!-- Stage 3 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Stage 3: Flowering & Boll / Grain Formation</div>
-                            <div class="timeline-time">Day 36 to 65 • Expected Date: <span id="date_flowering">Jan 11</span></div>
-                            <p class="timeline-tasks">
-                                • Critical moisture stage: avoid water stress.<br>
-                                • Apply wood ash potash booster or 13:0:45 foliar spray.<br>
-                                • Install pheromone traps (5 traps/acre) for bollworm monitoring.
-                            </p>
+                    <div class="lifecycle-card">
+                        <div class="lifecycle-header">
+                            <span class="lifecycle-stage" data-i18n="stage3_title">Stage 3: Flowering & Grain/Boll Formation</span>
+                            <span class="lifecycle-date" id="date_stage3">Jan 11</span>
                         </div>
+                        <p class="lifecycle-desc" data-i18n="stage3_tasks">
+                            • Crucial moisture period: avoid severe moisture deficit.<br>
+                            • Apply wood ash potash booster or 13:0:45 foliar organic spray.<br>
+                            • Install pheromone traps (5/acre) to monitor bollworm/pod borer.
+                        </p>
                     </div>
 
-                    <!-- Stage 4 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Stage 4: Maturity & Harvesting</div>
-                            <div class="timeline-time">Day 120+ • Expected Date: <span id="date_harvest">Mar 17</span></div>
-                            <p class="timeline-tasks">
-                                • Cease irrigation 10-14 days prior to picking.<br>
-                                • Harvest during dry sunshine hours to avoid moisture accumulation.<br>
-                                • Store in ventilated dry gunny bags; check moisture below 10%.
-                            </p>
+                    <div class="lifecycle-card">
+                        <div class="lifecycle-header">
+                            <span class="lifecycle-stage" data-i18n="stage4_title">Stage 4: Maturity & Safe Harvesting</span>
+                            <span class="lifecycle-date" id="date_stage4">Mar 27</span>
                         </div>
+                        <p class="lifecycle-desc" data-i18n="stage4_tasks">
+                            • Stop irrigation 10 to 14 days before harvest.<br>
+                            • Pick/harvest during dry bright sunshine to prevent mold.<br>
+                            • Dry produce thoroughly to bring grain moisture below 10% for storage.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 3: AI FERTILIZER FORMULATION -->
-        <section id="tab_fertilizer_formulator" class="tab-content">
+        <!-- TAB 3: AI FERTILIZER MAKER -->
+        <section id="tab_fert" class="tab-panel">
             <div class="grid-2">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title" id="fertilizer_title">AI Homemade Fertilizer Formulation</h2>
+                        <h2 class="card-title" data-i18n="fert_title">AI Homemade Fertilizer Formulation</h2>
                     </div>
-                    <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:16px;">
-                        Select the agricultural resources readily available on your farm. The AI will compute an organic, cost-free formulation tailored to your target crop.
+                    <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:14px;" data-i18n="fert_intro">
+                        Select resources currently available on your farm. The AI computes an organic, zero-waste formulation tailored to your target crop.
                     </p>
 
                     <div class="form-group">
-                        <label class="form-label" for="fert_crop_select">Target Crop</label>
+                        <label class="form-label" for="fert_crop_select" data-i18n="fert_label_crop">Target Crop:</label>
                         <select id="fert_crop_select" class="form-control">
                             <option value="Cotton" selected>Cotton (పత్తి / कपास)</option>
                             <option value="Rice">Rice (వరి / धान)</option>
@@ -328,47 +348,47 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Available Farm Resources (Click to toggle)</label>
-                        <div class="chip-grid">
-                            <div class="chip selected" data-value="Cow Dung">🐄 Cow Dung</div>
-                            <div class="chip selected" data-value="Neem Leaves">🌿 Neem Leaves</div>
-                            <div class="chip selected" data-value="Wood Ash">🪵 Wood Ash</div>
-                            <div class="chip" data-value="Farmyard Manure">🌾 Farmyard Manure</div>
-                            <div class="chip" data-value="Crushed Eggshells">🥚 Crushed Eggshells</div>
-                            <div class="chip" data-value="Biochar">🔥 Biochar</div>
-                            <div class="chip" data-value="Vermicompost">🪱 Vermicompost</div>
-                            <div class="chip" data-value="Pulse Flour">🥣 Pulse Flour (Besan)</div>
+                        <label class="form-label" data-i18n="fert_label_resources">Available Farm Resources (Tap to toggle):</label>
+                        <div class="chips-container">
+                            <div class="resource-chip active" data-val="Cow Dung" data-i18n="res_cow_dung">🐄 Cow Dung</div>
+                            <div class="resource-chip active" data-val="Neem Leaves" data-i18n="res_neem_leaves">🌿 Neem Leaves</div>
+                            <div class="resource-chip active" data-val="Wood Ash" data-i18n="res_wood_ash">🪵 Wood Ash</div>
+                            <div class="resource-chip" data-val="Farmyard Manure" data-i18n="res_farmyard_manure">🌾 Farmyard Manure</div>
+                            <div class="resource-chip" data-val="Crushed Eggshells" data-i18n="res_eggshells">🥚 Crushed Eggshells</div>
+                            <div class="resource-chip" data-val="Biochar" data-i18n="res_biochar">🔥 Biochar</div>
+                            <div class="resource-chip" data-val="Vermicompost" data-i18n="res_vermicompost">🪱 Vermicompost</div>
+                            <div class="resource-chip" data-val="Pulse Flour" data-i18n="res_pulse_flour">🥣 Pulse Flour (Besan)</div>
                         </div>
                     </div>
 
-                    <button class="btn-primary" onclick="generateFertilizer()" id="btn_make_fertilizer">
+                    <button class="btn-submit" onclick="generateFertilizer()" data-i18n="btn_generate_fert">
                         Generate Organic Formulation
                     </button>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Tailored Formulation Recipe</h2>
+                        <h2 class="card-title">Organic Recipe Cards</h2>
                     </div>
                     <div id="fertilizer_result">
-                        <div style="background:#fff; border:1px solid #c8e6c9; border-radius:10px; padding:16px; margin-bottom:14px; text-align:left;">
-                            <h4 style="color:#1b5e20; margin-bottom:6px;">🌿 Enriched Jeevamrutha (జీవామృతం / जीवामृत)</h4>
-                            <p style="font-size:0.85rem; color:#555; margin-bottom:8px;"><strong>Targets:</strong> Nitrogen, Microbial Soil Life</p>
-                            <div style="background:#f9fbf9; padding:10px; border-radius:6px; font-size:0.88rem; margin-bottom:8px;">
-                                <strong>Ingredients Needed:</strong> 10kg fresh cow dung, 5-10L cow urine, 2kg jaggery, 2kg pulse flour, handful fertile soil.
+                        <div style="background:#fff; border:1px solid #d2e7d2; border-radius:8px; padding:14px; margin-bottom:12px;">
+                            <h4 style="color:var(--primary); margin-bottom:4px; font-size:1rem;">🌿 Enriched Jeevamrutha (జీవామృతం / जीवामृत)</h4>
+                            <p style="font-size:0.8rem; color:#666; margin-bottom:8px;"><strong>Targets:</strong> Nitrogen & Soil Microorganisms</p>
+                            <div style="background:#f7faf7; padding:8px 10px; border-radius:6px; font-size:0.84rem; margin-bottom:6px;">
+                                <strong>Ingredients:</strong> 10kg cow dung, 5-10L cow urine, 2kg jaggery, 2kg pulse flour, handful fertile soil.
                             </div>
-                            <p style="font-size:0.88rem; margin-bottom:6px;"><strong>Preparation:</strong> Mix in 200L water drum. Stir twice daily clockwise for 48 hours in shade.</p>
-                            <p style="font-size:0.88rem; color:#2e7d32;"><strong>Application:</strong> Apply 200L per acre via irrigation or root drenching every 21 days.</p>
+                            <p style="font-size:0.84rem; margin-bottom:4px;"><strong>Preparation:</strong> Mix in 200L water drum. Stir twice daily in shade for 48 hours.</p>
+                            <p style="font-size:0.84rem; color:var(--primary);"><strong>Application:</strong> Apply 200L per acre via irrigation or root drenching every 21 days.</p>
                         </div>
 
-                        <div style="background:#fff; border:1px solid #c8e6c9; border-radius:10px; padding:16px; text-align:left;">
-                            <h4 style="color:#1b5e20; margin-bottom:6px;">🪵 Wood Ash Potash Booster (బూడిద పొటాష్)</h4>
-                            <p style="font-size:0.85rem; color:#555; margin-bottom:8px;"><strong>Targets:</strong> Potassium Deficiency & Pest Deterrence</p>
-                            <div style="background:#f9fbf9; padding:10px; border-radius:6px; font-size:0.88rem; margin-bottom:8px;">
-                                <strong>Ingredients Needed:</strong> Sifted dry hardwood ash (50kg/acre).
+                        <div style="background:#fff; border:1px solid #d2e7d2; border-radius:8px; padding:14px;">
+                            <h4 style="color:var(--primary); margin-bottom:4px; font-size:1rem;">🪵 Wood Ash Potash Booster (బూడిద పొటాష్)</h4>
+                            <p style="font-size:0.8rem; color:#666; margin-bottom:8px;"><strong>Targets:</strong> Potassium Deficiency & Natural Pest Repellent</p>
+                            <div style="background:#f7faf7; padding:8px 10px; border-radius:6px; font-size:0.84rem; margin-bottom:6px;">
+                                <strong>Ingredients:</strong> Sifted dry hardwood ash (50kg/acre).
                             </div>
-                            <p style="font-size:0.88rem; margin-bottom:6px;"><strong>Preparation:</strong> Sift to remove unburnt chunks. Dust base or steep in compost tea.</p>
-                            <p style="font-size:0.88rem; color:#2e7d32;"><strong>Application:</strong> Apply prior to squaring and flowering to boost boll weight and disease resistance.</p>
+                            <p style="font-size:0.84rem; margin-bottom:4px;"><strong>Preparation:</strong> Sift clean ash; dust base of crops or steep in compost tea.</p>
+                            <p style="font-size:0.84rem; color:var(--primary);"><strong>Application:</strong> Apply prior to flowering to boost grain and boll weight.</p>
                         </div>
                     </div>
                 </div>
@@ -376,124 +396,123 @@
         </section>
 
         <!-- TAB 4: WEATHER FORECAST & EARLY WARNING -->
-        <section id="tab_weather_forecast" class="tab-content">
+        <section id="tab_weather" class="tab-panel">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">5-Day Hyper-Local Agricultural Weather Forecast</h2>
-                    <span style="font-size:0.85rem; color:var(--text-muted);">Satellite & Regional IMD Telemetry</span>
+                    <h2 class="card-title" data-i18n="wtab_title">5-Day Agricultural Weather Outlook</h2>
                 </div>
 
                 <div class="grid-3" style="margin-top:10px;">
-                    <div style="background:#fbfdfb; border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center;">
-                        <h4 style="color:var(--primary); font-size:1.1rem; margin-bottom:6px;">Today</h4>
-                        <div style="font-size:2.2rem; margin:8px 0;">⛅</div>
-                        <div style="font-weight:700; font-size:1.2rem;">30°C / 22°C</div>
-                        <p style="font-size:0.85rem; color:#666; margin-top:6px;">Partly Cloudy • Rain: 35%</p>
+                    <div class="card" style="text-align:center; padding:16px;">
+                        <h4 style="color:var(--primary);" data-i18n="wtab_day_today">Today</h4>
+                        <div style="font-size:2rem; margin:6px 0;">⛅</div>
+                        <div style="font-weight:700;">30°C / 22°C</div>
+                        <p style="font-size:0.82rem; color:#666; margin-top:4px;">Partly Cloudy • Rain: 35%</p>
                     </div>
 
-                    <div style="background:#fbfdfb; border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center;">
-                        <h4 style="color:var(--primary); font-size:1.1rem; margin-bottom:6px;">Tomorrow</h4>
-                        <div style="font-size:2.2rem; margin:8px 0;">🌦️</div>
-                        <div style="font-weight:700; font-size:1.2rem;">28°C / 21°C</div>
-                        <p style="font-size:0.85rem; color:#d84315; font-weight:700; margin-top:6px;">Light Showers • Rain: 60%</p>
+                    <div class="card" style="text-align:center; padding:16px;">
+                        <h4 style="color:var(--primary);" data-i18n="wtab_day_tmrw">Tomorrow</h4>
+                        <div style="font-size:2rem; margin:6px 0;">🌦️</div>
+                        <div style="font-weight:700;">28°C / 21°C</div>
+                        <p style="font-size:0.82rem; color:var(--accent); font-weight:700; margin-top:4px;">Light Showers • Rain: 60%</p>
                     </div>
 
-                    <div style="background:#fff8e1; border:1px solid #ffe082; border-radius:12px; padding:18px; text-align:center;">
-                        <h4 style="color:#b78103; font-size:1.1rem; margin-bottom:6px;">Day 3</h4>
-                        <div style="font-size:2.2rem; margin:8px 0;">⛈️</div>
-                        <div style="font-weight:700; font-size:1.2rem;">29°C / 20°C</div>
-                        <p style="font-size:0.85rem; color:#b71c1c; font-weight:700; margin-top:6px;">⚡ Storm Alert • Rain: 75%</p>
+                    <div class="card" style="text-align:center; padding:16px; background:#fffbeb; border-color:#fde68a;">
+                        <h4 style="color:#b45309;" data-i18n="wtab_day_3">Day 3</h4>
+                        <div style="font-size:2rem; margin:6px 0;">⛈️</div>
+                        <div style="font-weight:700;">29°C / 20°C</div>
+                        <p style="font-size:0.82rem; color:#b91c1c; font-weight:700; margin-top:4px;">⚡ Thunderstorms • Rain: 75%</p>
                     </div>
 
-                    <div style="background:#fbfdfb; border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center;">
-                        <h4 style="color:var(--primary); font-size:1.1rem; margin-bottom:6px;">Day 4</h4>
-                        <div style="font-size:2.2rem; margin:8px 0;">🌤️</div>
-                        <div style="font-weight:700; font-size:1.2rem;">31°C / 23°C</div>
-                        <p style="font-size:0.85rem; color:#666; margin-top:6px;">Sunny Intervals • Rain: 20%</p>
+                    <div class="card" style="text-align:center; padding:16px;">
+                        <h4 style="color:var(--primary);" data-i18n="wtab_day_4">Day 4</h4>
+                        <div style="font-size:2rem; margin:6px 0;">🌤️</div>
+                        <div style="font-weight:700;">31°C / 23°C</div>
+                        <p style="font-size:0.82rem; color:#666; margin-top:4px;">Sunny Intervals • Rain: 20%</p>
                     </div>
 
-                    <div style="background:#fbfdfb; border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center;">
-                        <h4 style="color:var(--primary); font-size:1.1rem; margin-bottom:6px;">Day 5</h4>
-                        <div style="font-size:2.2rem; margin:8px 0;">☀️</div>
-                        <div style="font-weight:700; font-size:1.2rem;">32°C / 23°C</div>
-                        <p style="font-size:0.85rem; color:#666; margin-top:6px;">Clear Sky • Rain: 10%</p>
+                    <div class="card" style="text-align:center; padding:16px;">
+                        <h4 style="color:var(--primary);" data-i18n="wtab_day_5">Day 5</h4>
+                        <div style="font-size:2rem; margin:6px 0;">☀️</div>
+                        <div style="font-weight:700;">32°C / 23°C</div>
+                        <p style="font-size:0.82rem; color:#666; margin-top:4px;">Clear Sky • Rain: 10%</p>
                     </div>
                 </div>
 
-                <div style="margin-top:24px; padding:16px; background:#e8f5e9; border-radius:8px; border-left:4px solid var(--primary);">
-                    <h4 style="color:var(--primary-dark); font-size:0.95rem; margin-bottom:4px;">🌾 Agronomic Action Advice:</h4>
-                    <p style="font-size:0.88rem; color:#2e7d32;">
-                        Due to the Day 3 thunderstorm probability, drain excess water from low-lying paddy/cotton plots and avoid urea top dressing until after the storm passes.
+                <div style="margin-top:20px; padding:14px; background:#f0f7f0; border-left:4px solid var(--primary); border-radius:6px;">
+                    <strong style="color:var(--primary); font-size:0.9rem;" data-i18n="wtab_advice_title">Agronomic Field Advice:</strong>
+                    <p style="font-size:0.85rem; color:#333; margin-top:4px;" data-i18n="wtab_advice_desc">
+                        Due to predicted Day 3 thunderstorms, ensure field drainage channels are clear and delay fertilizer top-dressing until showers clear.
                     </p>
                 </div>
             </div>
         </section>
 
         <!-- TAB 5: MANDI MARKET PRICES -->
-        <section id="tab_market_prices" class="tab-content">
+        <section id="tab_mandi" class="tab-panel">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title" id="market_title">Real-time Mandi Market Rates</h2>
-                    <input type="text" id="market_search" class="form-control" style="width:240px; padding:6px 12px;" placeholder="Search commodity or mandi..." onkeyup="filterMarket()">
+                    <h2 class="card-title" data-i18n="market_title">Real-time Mandi Market Commodity Rates</h2>
+                    <input type="text" id="market_search" class="form-control" style="width:240px; padding:6px 10px;" placeholder="Search commodity or mandi..." data-i18n-ph="market_search_ph" onkeyup="renderMandiTable()">
                 </div>
 
-                <div class="table-responsive">
-                    <table class="styled-table">
+                <div class="table-wrap">
+                    <table class="mandi-table">
                         <thead>
                             <tr>
-                                <th>Commodity</th>
-                                <th>Mandi / District</th>
-                                <th>Modal Rate (₹)</th>
-                                <th>Govt MSP (₹)</th>
-                                <th>7-Day Trend</th>
+                                <th data-i18n="th_commodity">Commodity</th>
+                                <th data-i18n="th_mandi">Mandi / Market</th>
+                                <th data-i18n="th_price">Current Rate (₹)</th>
+                                <th data-i18n="th_msp">Govt MSP (₹)</th>
+                                <th data-i18n="th_trend">7-Day Trend</th>
                             </tr>
                         </thead>
                         <tbody id="mandi_tbody">
-                            <!-- Populated via app.js -->
+                            <!-- Rendered by app.js -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 6: INVENTORY & PROFIT/LOSS LEDGER -->
-        <section id="tab_inventory_pnl" class="tab-content">
+        <!-- TAB 6: FARM PROFIT & LOSS -->
+        <section id="tab_pnl" class="tab-panel">
             <div class="grid-2">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title" id="pnl_title">Farm Inventory & Cost Ledger</h2>
+                        <h2 class="card-title" data-i18n="pnl_title">Farm Cost Ledger & Profit Calculator</h2>
                     </div>
 
-                    <h4 style="font-size:0.9rem; color:var(--text-muted); margin-bottom:10px;">EXPENSES (INVESTMENT)</h4>
+                    <h4 style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;" data-i18n="pnl_sec_costs">EXPENSES / INVESTMENT</h4>
                     <div class="grid-2">
                         <div class="form-group">
-                            <label class="form-label" for="cost_seeds">Seeds Cost (₹)</label>
+                            <label class="form-label" for="cost_seeds" data-i18n="pnl_lbl_seeds">Seeds & Saplings (₹):</label>
                             <input type="number" id="cost_seeds" class="form-control" value="2800" oninput="calculatePnL()">
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="cost_fertilizer">Fertilizers & Pesticides (₹)</label>
+                            <label class="form-label" for="cost_fertilizer" data-i18n="pnl_lbl_fert">Fertilizers & Pest Control (₹):</label>
                             <input type="number" id="cost_fertilizer" class="form-control" value="4500" oninput="calculatePnL()">
                         </div>
                     </div>
                     <div class="grid-2">
                         <div class="form-group">
-                            <label class="form-label" for="cost_labor">Labor & Weeding (₹)</label>
+                            <label class="form-label" for="cost_labor" data-i18n="pnl_lbl_labor">Labor & Weeding (₹):</label>
                             <input type="number" id="cost_labor" class="form-control" value="6200" oninput="calculatePnL()">
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="cost_irrigation">Machinery & Diesel (₹)</label>
+                            <label class="form-label" for="cost_irrigation" data-i18n="pnl_lbl_machinery">Machinery, Fuel & Irrigation (₹):</label>
                             <input type="number" id="cost_irrigation" class="form-control" value="3500" oninput="calculatePnL()">
                         </div>
                     </div>
 
-                    <h4 style="font-size:0.9rem; color:var(--text-muted); margin:16px 0 10px 0;">HARVEST & SALES REVENUE</h4>
+                    <h4 style="font-size:0.85rem; color:var(--text-muted); margin:14px 0 8px 0;" data-i18n="pnl_sec_rev">HARVEST & REVENUE</h4>
                     <div class="grid-2">
                         <div class="form-group">
-                            <label class="form-label" for="yield_qtl">Yield Harvested (Quintals)</label>
+                            <label class="form-label" for="yield_qtl" data-i18n="pnl_lbl_yield">Total Yield Harvested (Quintals):</label>
                             <input type="number" id="yield_qtl" class="form-control" value="14" oninput="calculatePnL()">
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="price_per_qtl">Selling Price (₹ / Quintal)</label>
+                            <label class="form-label" for="price_per_qtl" data-i18n="pnl_lbl_rate">Selling Price (₹ per Quintal):</label>
                             <input type="number" id="price_per_qtl" class="form-control" value="7450" oninput="calculatePnL()">
                         </div>
                     </div>
@@ -502,29 +521,27 @@
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">Profit & Loss Performance</h2>
-                        <span style="font-size:0.8rem; background:#e8f5e9; color:#2e7d32; padding:4px 10px; border-radius:12px; font-weight:700;">Live Farm ROI</span>
                     </div>
 
-                    <div class="pnl-summary">
-                        <div class="pnl-stat pnl-investment">
-                            <span style="font-size:0.8rem; font-weight:700;">Total Expense</span>
-                            <span id="pnl_total_cost" class="pnl-val">₹17,000</span>
+                    <div class="pnl-strip">
+                        <div class="pnl-box">
+                            <span style="font-size:0.75rem; color:var(--text-muted);" data-i18n="pnl_res_costs">Total Expenses</span>
+                            <span id="pnl_total_cost" class="pnl-num">₹17,000</span>
                         </div>
-                        <div class="pnl-stat pnl-revenue">
-                            <span style="font-size:0.8rem; font-weight:700;">Total Revenue</span>
-                            <span id="pnl_total_rev" class="pnl-val">₹104,300</span>
+                        <div class="pnl-box">
+                            <span style="font-size:0.75rem; color:var(--text-muted);" data-i18n="pnl_res_rev">Total Revenue</span>
+                            <span id="pnl_total_rev" class="pnl-num">₹104,300</span>
                         </div>
-                        <div id="pnl_net_container" class="pnl-stat pnl-net profit">
-                            <span style="font-size:0.8rem; font-weight:700;">Net Profit</span>
-                            <span id="pnl_net_profit" class="pnl-val">+₹87,300 (513.5% ROI)</span>
+                        <div id="pnl_net_box" class="pnl-box profit">
+                            <span style="font-size:0.75rem;" data-i18n="pnl_res_net">Net Profit / Loss</span>
+                            <span id="pnl_net_profit" class="pnl-num">+₹87,300 (513.5% ROI)</span>
                         </div>
                     </div>
 
-                    <div style="margin-top:24px; padding:16px; background:#f9fbf9; border-radius:8px; border:1px solid var(--border);">
-                        <h4 style="font-size:0.92rem; color:var(--primary-dark); margin-bottom:8px;">📊 Financial Health Check:</h4>
-                        <p style="font-size:0.85rem; color:#444; line-height:1.5;">
-                            • High Profitability: Your revenue covers all operating expenses by over 6×.<br>
-                            • Cost reduction recommendation: Utilizing homemade Jeevamrutha and Wood Ash can save an estimated ₹2,200 on commercial fertilizer bills next cycle.
+                    <div style="margin-top:20px; padding:14px; background:#f9fbf9; border:1px solid var(--border); border-radius:8px;">
+                        <h4 style="font-size:0.88rem; color:var(--primary); margin-bottom:4px;" data-i18n="pnl_tip_title">Financial Health Recommendation:</h4>
+                        <p style="font-size:0.82rem; color:#444;" data-i18n="pnl_tip_desc">
+                            Your revenue covers expenses by 6.1×. Formulating homemade bio-fertilizers using wood ash and cattle manure can save up to ₹2,500 on future input costs.
                         </p>
                     </div>
                 </div>
@@ -532,24 +549,24 @@
         </section>
 
         <!-- TAB 7: TELANGANA CROP LIBRARY -->
-        <section id="tab_crop_database" class="tab-content">
+        <section id="tab_lib" class="tab-panel">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title" id="library_title">Telangana & Regional Crop Database</h2>
-                    <input type="text" id="library_search" class="form-control" style="width:260px; padding:6px 12px;" placeholder="Search crops, soil, water..." onkeyup="filterCropLibrary()">
+                    <h2 class="card-title" data-i18n="lib_title">Telangana & Regional Crop Database</h2>
+                    <input type="text" id="library_search" class="form-control" style="width:260px; padding:6px 10px;" placeholder="Search crop name, soil type, water..." data-i18n-ph="lib_search_ph" onkeyup="renderCropLibrary()">
                 </div>
 
-                <div id="crop_library_grid" class="grid-3">
-                    <!-- Populated via app.js -->
+                <div id="crop_library_grid" class="grid-3" style="margin-top:12px;">
+                    <!-- Rendered by app.js -->
                 </div>
             </div>
         </section>
 
     </main>
 
-    <footer style="margin-top:50px; text-align:center; padding:20px; color:#666; font-size:0.82rem; border-top:1px solid var(--border);">
-        <p>ANNADATA — AI-driven Network for Nurturing Agriculture through Data Analytics and Technology Assistance</p>
-        <p>Government of Jharkhand • SIH25030 • Developed with pride for Indian Farmers</p>
+    <footer style="margin-top:40px; text-align:center; padding:20px; color:#666; font-size:0.82rem; border-top:1px solid var(--border);">
+        <p data-i18n="footer_text">ANNADATA — AI-driven Network for Nurturing Agriculture through Data Analytics and Technology Assistance</p>
+        <p data-i18n="footer_sub">Government of Jharkhand • SIH25030 • Dedicated to the prosperity of Indian Farmers</p>
     </footer>
 
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
